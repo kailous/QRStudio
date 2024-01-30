@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>二维码解码器</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body>
@@ -12,11 +13,21 @@
     <form id="upload-form">
         <label for="image-input">选择图片:</label>
         <input type="file" id="image-input" name="image" accept="image/*" required>
+        <!-- 插入ecl选项 -->
+        <label for="ecl">选择纠错等级:</label>
+        <select id="ecl" name="ecl">
+            <option value="L">L</option>
+            <option value="M">M</option>
+            <option value="Q">Q</option>
+            <option value="H">H</option>
+        </select>
         <button type="submit">解码二维码</button>
     </form>
-
     <p id="decoded-text"></p>
-    <svg id="generated-qrcode-svg"></svg>
+    <div id="box">
+        <p id="status"></p> <!-- 添加状态显示元素 -->
+        <svg id="generated-qrcode-svg"></svg>
+    </div>
     <script src="js/upload.js"></script>
 </body>
 
