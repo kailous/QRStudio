@@ -11,19 +11,30 @@
 <body>
     <h1>二维码解码器</h1>
     <form id="upload-form">
-        <label for="image-input">选择图片:</label>
-        <input type="file" id="image-input" name="image" accept="image/*" required>
-        <!-- 插入ecl选项 -->
-        <label for="ecl">选择纠错等级:</label>
-        <select id="ecl" name="ecl">
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="Q">Q</option>
-            <option value="H">H</option>
-        </select>
+        
+            
+            <div id="upload-area" class="drop-area">
+                <label for="image-input" id="file-label">拖放二维码图片到这里，或者</label>
+                <input type="file" id="image-input" name="image" accept="image/*" required>
+            </div>
+
+
+            <!-- 插入ecl选项 -->
+            <div id="option">
+            <label for="ecl">容错率:</label>
+            <select id="ecl" name="ecl">
+                <option value="L">L</option>
+                <option value="M">M</option>
+                <option value="Q">Q</option>
+                <option value="H">H</option>
+            </select>
+        
         <button type="submit">解码二维码</button>
+    </div>
     </form>
-    <p id="decoded-text"></p>
+    <div id="info">
+    解码内容：<p id="decoded-text"></p>
+</div>
     <div id="box">
         <p id="status"></p> <!-- 添加状态显示元素 -->
         <svg id="generated-qrcode-svg"></svg>

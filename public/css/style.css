@@ -1,24 +1,97 @@
-#box,#generated-qrcode-svg,#status {
+#box,
+#generated-qrcode-svg,
+#status {
     width: 256px;
     height: 256px;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-#generated-qrcode-svg,#status {
+
+#generated-qrcode-svg,
+#status {
     position: absolute;
     top: 0;
     left: 0;
 }
+
 #box {
     position: relative;
 }
+
+#option {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+}
+
+#option * {
+    /* 不换行 */
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.drop-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.drop-area:hover {
+    border-color: #333;
+}
+
+/* 样式化标签 */
+/* input[type="file"]::file-selector-button {
+    display: flex;
+} */
+
 #status {
     justify-content: center;
     align-items: center;
     display: flex;
 }
+
 #status dotlottie-player {
     width: 128px;
     height: 128px;
+}
+
+input:is([type="button"], [type="submit"], [type="reset"]),
+input[type="file"]::file-selector-button,
+button {
+    border: none !important;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #A443FF;
+    color: #fff;
+    line-height: 100%;
+    cursor: pointer;
+    height: 30px;
+}
+
+#ecl {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    background-image: url(../img/down.svg);
+    background-position: right 5px center;
+    background-repeat: no-repeat;
+    background-color: #d9d9d9;
+    border: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px;
+    justify-content: center;
+    height: 30px;
+    text-indent: 10px;
 }
