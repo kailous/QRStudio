@@ -5,31 +5,32 @@ const generateQRCode = require('./api/generate');
 const app = express();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
 app.use(express.static('public')); 
 app.use(express.json());
-const morgan = require('morgan');
-// 创建一个日志记录格式
-morgan.token('body', (req) => {
-    return JSON.stringify(req.body);
-  });
-  
-  // 设置 morgan 中间件
-  app.use(morgan('[:date[clf]] :method :url :status :response-time ms - :res[content-length] :body'));
-  
 
 // 二维码解码
 app.post('/decode', upload.single('image'), async (req, res) => {
+    console.log('解码二维码');
     if (!req.file) {
+        console.log('未上传图片');
         return res.status(400).send('未上传图片');
     }
 
-    // 解码二维码
-    const decodedText = await decodeQRCode(req.file.buffer);
-    // 根据解码结果返回响应
-    if (decodedText) {
-        res.send({ decodedText });
-    } else {
-        res.status(400).send('无法解析二维码');
+    try {
+        console.log('解码二维码');
+        const decodedText = await decodeQRCode(req.file.buffer);
+        if (decodedText) {
+            console.log('解码结果：', decodedText);
+            res.send({ decodedText });
+        } else {
+            console.log('无法解析二维码');
+            res.status(400).send('无法解析二维码');
+        }
+    } catch (error) {
+        console.error('解码过程中出错：', error);
+        console.error(error);
+        res.status(500).send('解码过程中出错');
     }
 });
 

@@ -1,3 +1,6 @@
+// generate.js
+// 生成二维码
+
 const QRCode = require('qrcode-svg');
 
 /**

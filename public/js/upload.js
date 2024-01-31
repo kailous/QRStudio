@@ -30,6 +30,7 @@ function submitForm() {
     // 您可以在这里添加任何提交前的验证或处理逻辑
     const formData = new FormData(uploadForm);
     decodeAndGenerateQRCode(formData);
+    console.log('提交表单');
 }
 
 // 添加拖拽和放置事件监听器
@@ -75,6 +76,7 @@ function addClickAndChangeListeners() {
 
 // 解码并生成QR码的异步函数
 async function decodeAndGenerateQRCode(formData) {
+    console.log('解码并生成QR码');
     setStatusMessage(messages.uploading);
     try {
         const decodeResponse = await fetch('/decode', { method: 'POST', body: formData });
