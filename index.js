@@ -3,7 +3,8 @@ const multer = require('multer');
 const decodeQRCode = require('./api/decode');
 const generateQRCode = require('./api/generate');
 const app = express();
-const upload = multer({ dest: 'uploads/' });
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 app.use(express.static('public')); 
 app.use(express.json());
 const morgan = require('morgan');
@@ -23,8 +24,8 @@ app.post('/decode', upload.single('image'), async (req, res) => {
     }
 
     // 解码二维码
-    const decodedText = await decodeQRCode(req.file.path);
-    
+    // const decodedText = await decodeQRCode(req.file.path);
+    const decodedText = await decodeQRCode(req.file.buffer);
     // 根据解码结果返回响应
     if (decodedText) {
         res.send({ decodedText });
