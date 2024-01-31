@@ -5,6 +5,7 @@ const Jimp = require('jimp');
 const jsQR = require('jsqr');
 
 async function decodeQRCode(imageBuffer) {
+    console.log('解码二维码');
     try {
         // 从 Buffer 读取图像
         const image = await Jimp.read(imageBuffer);

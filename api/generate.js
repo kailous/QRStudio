@@ -6,6 +6,7 @@ const QRCode = require('qrcode-svg');
  * @return {string} 生成的SVG格式二维码
  */
 function generateSVGQRCode(text, options, ecl) {
+    console.log('生成二维码');
     const qrCode = new QRCode({
         content: text,
         padding: 1,
