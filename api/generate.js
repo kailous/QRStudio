@@ -9,7 +9,7 @@ function generateSVGQRCode(text, options, ecl) {
     const qrCode = new QRCode({
         content: text,
         padding: 1,
-        join: true,
+        join: false,
         ecl: ecl
     });
     return qrCode.svg();

@@ -13,7 +13,7 @@ const messages = {
     decoding: '解析中...',
     generating: '生成中...',
     success: '成功',
-    failure: '失败',
+    failure: '<dotlottie-player src="https://lottie.host/fdc3a4e7-716a-43ff-b315-679ff470728f/Wb3lRIkCEe.json" background="transparent" speed="1" style="width: 128px; height: 128px;" loop autoplay></dotlottie-player>',
 };
 
 // 处理文件选择事件
@@ -78,7 +78,7 @@ async function decodeAndGenerateQRCode(formData) {
     setStatusMessage(messages.uploading);
     try {
         const decodeResponse = await fetch('/decode', { method: 'POST', body: formData });
-        if (!decodeResponse.ok) throw new Error('这不是二维码图片 你在逗我-_- ～');
+        if (!decodeResponse.ok) throw new Error('这不是二维码图片<br>你在逗我～');
 
         const decodeData = await decodeResponse.json();
         if (!decodeData.decodedText) throw new Error('无法解析二维码');
@@ -119,7 +119,7 @@ function generateQRCode(svgText) {
 
 // 设置状态消息的函数
 function setStatusMessage(status, customMessage = '') {
-    statusElement.innerHTML = customMessage ? `${status}:${customMessage}` : status;
+    statusElement.innerHTML = customMessage ? `${status}${customMessage}` : status;
 }
 
 // 添加事件监听器

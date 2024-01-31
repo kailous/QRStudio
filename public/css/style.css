@@ -1,3 +1,81 @@
+body{
+    background-color: #ccc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+#tips{
+    display: flex;
+    flex-direction: row;
+    width: 800px;
+    background-color: white;
+    padding: 30px 50px;
+    border-radius: 0 0 30px 30px;
+    margin: 0;
+    position: fixed;
+    color: #fff;
+    left: calc(50% - 400px - 50px);
+    top: -100px;
+    gap: 30px;
+    transition: top 0.5s;
+}
+#download{
+    display: flex;
+    gap: 20px;
+}
+#main{
+    display: flex;
+    flex-direction: row;
+    width: 800px;
+    background-color: white;
+    padding: 50px;
+    border-radius: 30px;
+    margin: 50px auto;
+    gap: 30px;
+}
+#left,#right{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+}
+#left{
+    width: 100%;
+}
+#right{
+    width: 256px;
+}
+#upload-form{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: 20px;
+}
+#upload-area{
+    display: flex;
+    height: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 14px;
+    justify-content: center;
+}
+h1{
+    line-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+p {
+    line-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#title {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 #box,
 #generated-qrcode-svg,
 #status {
@@ -47,24 +125,26 @@
     border-color: #333;
 }
 
-/* 样式化标签 */
-/* input[type="file"]::file-selector-button {
-    display: flex;
-} */
-
 #status {
     justify-content: center;
     align-items: center;
     display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: #A443FF;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 #status dotlottie-player {
     width: 128px;
     height: 128px;
 }
-
+input[type="file"]::file-selector-button {
+    display: none !important;
+    font-size: 14px;
+}
 input:is([type="button"], [type="submit"], [type="reset"]),
-input[type="file"]::file-selector-button,
 button {
     border: none !important;
     font-size: 14px;
@@ -76,7 +156,12 @@ button {
     cursor: pointer;
     height: 30px;
 }
-
+label {
+    font-size: 14px;
+}
+div#upload-area * {
+    font-size: 16px !important;
+}
 #ecl {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -94,4 +179,5 @@ button {
     justify-content: center;
     height: 30px;
     text-indent: 10px;
+    font-size: 14px;
 }
