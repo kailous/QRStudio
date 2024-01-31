@@ -24,7 +24,6 @@ app.post('/decode', upload.single('image'), async (req, res) => {
     }
 
     // 解码二维码
-    // const decodedText = await decodeQRCode(req.file.path);
     const decodedText = await decodeQRCode(req.file.buffer);
     // 根据解码结果返回响应
     if (decodedText) {

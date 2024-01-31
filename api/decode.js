@@ -4,10 +4,10 @@
 const Jimp = require('jimp');
 const jsQR = require('jsqr');
 
-
-async function decodeQRCode(imagePath) {
+async function decodeQRCode(imageBuffer) {
     try {
-        const image = await Jimp.read(imagePath);
+        // 从 Buffer 读取图像
+        const image = await Jimp.read(imageBuffer);
 
         // 调整对比度，值范围从-1到1，例如0.5表示增加50%的对比度
         image.contrast(0.5);
