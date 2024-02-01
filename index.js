@@ -1,35 +1,37 @@
 const express = require('express');
 const multer = require('multer');
-const cors = require('cors');
 const decodeQRCode = require('./api/decode');
 const generateQRCode = require('./api/generate');
 const app = express();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-
 app.use(express.static('public')); 
 app.use(express.json());
-// 允许所有域名的跨域请求
-app.use(cors());
-
-// 二维码解码
-// index.js 或者处理请求的服务器端代码
-app.post('/decode', upload.single('image'), async (req, res) => {
-    if (!req.file) {
-      console.log('No file received');
-      return res.status(400).send('未上传图片');
-    }
-  
-    try {
-      console.log('解码二维码');
-      const decodedText = await decodeQRCode(req.file.buffer);
-      // ...
-    } catch (error) {
-      console.error('解码过程中出错：', error);
-      // ...
-    }
+const morgan = require('morgan');
+// 创建一个日志记录格式
+morgan.token('body', (req) => {
+    return JSON.stringify(req.body);
   });
   
+  // 设置 morgan 中间件
+  app.use(morgan('[:date[clf]] :method :url :status :response-time ms - :res[content-length] :body'));
+  
+
+// 二维码解码
+app.post('/decode', upload.single('image'), async (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('未上传图片');
+    }
+
+    // 解码二维码
+    const decodedText = await decodeQRCode(req.file.buffer);
+    // 根据解码结果返回响应
+    if (decodedText) {
+        res.send({ decodedText });
+    } else {
+        res.status(400).send('无法解析二维码');
+    }
+});
 
 // 生成二维码（返回SVG格式）
 app.post('/generate', async (req, res) => {
