@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const cors = require('cors');
 const decodeQRCode = require('./api/decode');
 const generateQRCode = require('./api/generate');
 const app = express();
@@ -8,31 +9,27 @@ const upload = multer({ storage: storage });
 
 app.use(express.static('public')); 
 app.use(express.json());
+// 允许所有域名的跨域请求
+app.use(cors());
 
 // 二维码解码
+// index.js 或者处理请求的服务器端代码
 app.post('/decode', upload.single('image'), async (req, res) => {
-    console.log('解码二维码');
     if (!req.file) {
-        console.log('未上传图片');
-        return res.status(400).send('未上传图片');
+      console.log('No file received');
+      return res.status(400).send('未上传图片');
     }
-
+  
     try {
-        console.log('解码二维码');
-        const decodedText = await decodeQRCode(req.file.buffer);
-        if (decodedText) {
-            console.log('解码结果：', decodedText);
-            res.send({ decodedText });
-        } else {
-            console.log('无法解析二维码');
-            res.status(400).send('无法解析二维码');
-        }
+      console.log('解码二维码');
+      const decodedText = await decodeQRCode(req.file.buffer);
+      // ...
     } catch (error) {
-        console.error('解码过程中出错：', error);
-        console.error(error);
-        res.status(500).send('解码过程中出错');
+      console.error('解码过程中出错：', error);
+      // ...
     }
-});
+  });
+  
 
 // 生成二维码（返回SVG格式）
 app.post('/generate', async (req, res) => {

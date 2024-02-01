@@ -21,10 +21,40 @@ function handleFileSelection(files) {
     if (files.length > 0) {
         imageInput.files = files;
         // 自动触发表单提交
-        submitForm();
+        // submitForm();
+        handleUpload(files[0]);
     }
 }
-
+// handleUpload 函数用于处理文件上传和解码
+function handleUpload(file) {
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    fetch('/decode', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.decodedText) throw new Error('无法解析二维码');
+        decodedTextElement.textContent = data.decodedText;
+        return fetch('/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: data.decodedText, ecl: document.getElementById('ecl').value })
+        });
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.qrCodeSvg) throw new Error('生成二维码失败');
+        generateQRCode(data.qrCodeSvg);
+        setStatusMessage(messages.success);
+    })
+    .catch(error => {
+        console.error(error);
+        setStatusMessage(messages.failure, error.message);
+    });
+}
 // 提交表单的函数
 function submitForm() {
     // 您可以在这里添加任何提交前的验证或处理逻辑
@@ -129,9 +159,9 @@ addDragAndDropListeners();
 addClickAndChangeListeners();
 
 // 提交表单时的事件处理
-uploadForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    submitForm();
-    const formData = new FormData(uploadForm);
-    decodeAndGenerateQRCode(formData);
-});
+// uploadForm.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     submitForm();
+//     const formData = new FormData(uploadForm);
+//     decodeAndGenerateQRCode(formData);
+// });
